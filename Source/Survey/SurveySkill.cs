@@ -22,6 +22,7 @@ using UnityEngine;
 
 using KSP.IO;
 using Experience;
+using KSP.Localization;
 
 namespace ExtraplanetaryLaunchpads {
 
@@ -39,14 +40,12 @@ using KerbalStats;
 			ProtoCrewMember crew = Parent.CrewMember;
 			string pronoun;
 			if (crew.gender == ProtoCrewMember.Gender.Female) {
-				pronoun = "She";
+				pronoun = LocalStrings.gender_She;//"She"
 			} else {
-				pronoun = "He";
+				pronoun = LocalStrings.gender_He;//"He"
 			}
 			int exp = Parent.CrewMemberExperienceLevel (6);
-			return String.Format ("{0} can use survey sites out to {1}m.",
-								  pronoun,
-								  ELSurveyStation.site_ranges[exp + 2]);
+			return Localizer.Format("#EL_UI_SurveyDescription", pronoun, ELSurveyStation.site_ranges[exp + 2]);//String.Format ("{0} can use survey sites out to {1}m.",)
 		}
 
 		public int GetValue ()

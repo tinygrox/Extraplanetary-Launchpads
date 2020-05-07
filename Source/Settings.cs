@@ -22,7 +22,7 @@ using System.Linq;
 using UnityEngine;
 
 using KSP.IO;
-
+using KSP.Localization;
 using ExtraplanetaryLaunchpads_KACWrapper;
 
 namespace ExtraplanetaryLaunchpads {
@@ -81,14 +81,13 @@ namespace ExtraplanetaryLaunchpads {
 			get;
 			private set;
 		}
-
 		static Rect windowpos;
 		private static bool gui_enabled;
 		private static string[] alarmactions = new string[] {
-			"Kill Warp+Message",
-			"Kill Warp only",
-			"Message Only",
-			"Pause Game"
+			LocalStrings.Alarmactions1,//"Kill Warp+Message"
+			LocalStrings.Alarmactions2,//"Kill Warp only"
+			LocalStrings.Alarmactions3,//"Message Only"
+			LocalStrings.Alarmactions4//"Pause Game"
 		};
 
 		public static ELSettings current
@@ -298,26 +297,26 @@ namespace ExtraplanetaryLaunchpads {
 			GUILayout.BeginVertical ();
 
 			bool pb = PreferBlizzy;
-			pb = GUILayout.Toggle (pb, "Use Blizzy's toolbar instead of App launcher");
+			pb = GUILayout.Toggle (pb, LocalStrings.UseToolbar);//"Use Blizzy's toolbar instead of App launcher"
 			if (pb != PreferBlizzy) {
 				PreferBlizzy = pb;
 				UpdateToolbarButton ();
 			}
 
 			bool uk = use_KAC;
-			uk = GUILayout.Toggle (uk, "Create alarms in Kerbal Alarm Clock");
+			uk = GUILayout.Toggle (uk, LocalStrings.UseKAC);//"Create alarms in Kerbal Alarm Clock"
 			use_KAC = uk;
 
 			bool si = ELShipInfo.showGUI;
-			si = GUILayout.Toggle (si, "Build Resources window currently visible in editor");
+			si = GUILayout.Toggle (si, LocalStrings.ShowGUI);//"Build Resources window currently visible in editor"
 			ELShipInfo.showGUI = si;
 
 			bool sch = ShowCraftHull;
-			sch = GUILayout.Toggle (sch, "Show craft hull during construction");
+			sch = GUILayout.Toggle (sch, LocalStrings.ShowCraftHull);//"Show craft hull during construction"
 			ShowCraftHull = sch;
 
 			bool dch = DebugCraftHull;
-			dch = GUILayout.Toggle (dch, "[Debug] Write craft hull points file");
+			dch = GUILayout.Toggle (dch, LocalStrings.DebugCraftHull);//"[Debug] Write craft hull points file"
 			DebugCraftHull = dch;
 
 			if (uk) {
@@ -343,7 +342,7 @@ namespace ExtraplanetaryLaunchpads {
 				//GUIStyle gridStyle = new GUIStyle ();
 
 				GUILayout.BeginHorizontal ();
-				GUILayout.Label ("Alarm type: ");
+				GUILayout.Label (LocalStrings.AlarmType + ": ");//Alarm type
 				actionint = GUILayout.SelectionGrid (actionint, alarmactions, 2);
 				GUILayout.EndHorizontal ();
 
@@ -367,7 +366,7 @@ namespace ExtraplanetaryLaunchpads {
 
 			}
 
-			if (GUILayout.Button ("OK")) {
+			if (GUILayout.Button (LocalStrings.btn_OK)) {//"OK"
 				gui_enabled = false;
 				InputLockManager.RemoveControlLock ("EL_Settings_window_lock");
 			}
@@ -384,7 +383,7 @@ namespace ExtraplanetaryLaunchpads {
 						windowpos = new Rect (Screen.width / 2 - 250,
 							Screen.height / 2 - 30, 0, 0);
 					}
-					string name = "Extraplanetary Launchpad";
+					string name = LocalStrings.MODNAME;//"Extraplanetary Launchpad"
 					string ver = ELVersionReport.GetVersion ();
 					windowpos = GUILayout.Window (GetInstanceID (),
 						windowpos, WindowGUI,

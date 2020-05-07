@@ -139,7 +139,7 @@ namespace ExtraplanetaryLaunchpads {
 		public override void OnStart(StartState state)
 		{
 			Events["NextUse"].guiName = StakeUses[use];
-			Events["ToggleBound"].guiName = bound ? "Bound" : "Direction";
+			Events["ToggleBound"].guiName = bound ? LocalStrings.Bound : LocalStrings.Direction;//"Bound""Direction"
 			if (HighLogic.LoadedSceneIsFlight) {
 				CreatePlaque ();
 				UpdatePlaque ();
@@ -172,14 +172,14 @@ namespace ExtraplanetaryLaunchpads {
 		public void ToggleBound()
 		{
 			bound = !bound;
-			Events["ToggleBound"].guiName = bound ? "Bound" : "Direction";
+			Events["ToggleBound"].guiName = bound ? LocalStrings.Bound : LocalStrings.Direction;//"Bound""Direction"
 			UpdatePlaque ();
 			ELSurveyTracker.onStakeModified.Fire (this);
 		}
 
 		[KSPEvent (active = true, guiActiveUnfocused = true,
 				   externalToEVAOnly = false, guiActive = false,
-				   unfocusedRange = 200f, guiName = "Rename Stake")]
+				   unfocusedRange = 200f, guiName = "#EL_UI_RenameStake")]//Rename Stake
 		public void RenameVessel ()
 		{
 			vessel.RenameVessel ();

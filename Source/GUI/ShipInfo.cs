@@ -168,7 +168,7 @@ namespace ExtraplanetaryLaunchpads {
 				winpos.height = 100;
 			}
 			winpos = GUILayout.Window (GetInstanceID (), winpos, InfoWindow,
-									  "Build Resources",
+									  LocalStrings.WindowTitle,//"Build Resources"
 									  GUILayout.MinWidth (200));
 			if (enabled && winpos.Contains (new Vector2 (Input.mousePosition.x, Screen.height - Input.mousePosition.y))) {
 				InputLockManager.SetControlLock ("EL_ShipInfo_window_lock");
@@ -234,15 +234,15 @@ namespace ExtraplanetaryLaunchpads {
 
 			GUILayout.BeginVertical ();
 
-			MassLabel ("Dry mass", buildCost.mass);
-			MassLabel ("Resource mass", resource_mass);
-			MassLabel ("Total mass", required_mass + resource_mass);
-			UnitLabel ("Build Time", kerbalHours, "Kh");
+			MassLabel (LocalStrings.Drymass, buildCost.mass);//"Dry mass"
+			MassLabel (LocalStrings.ResourceMass, resource_mass);//"Resource mass"
+			MassLabel (LocalStrings.TotalMass, required_mass + resource_mass);//"Total mass"
+			UnitLabel (LocalStrings.BuildTime, kerbalHours, LocalStrings.KerbalHourUnit);//"Build Time""Kh"
 
 			cost.optional.Sort ();
 			GUILayout.Label (" ");
-			ResourcePanel ("Required", cost.required, reqScroll);
-			ResourcePanel ("Optional", cost.optional, optScroll);
+			ResourcePanel (LocalStrings.Required, cost.required, reqScroll);//"Required"
+			ResourcePanel (LocalStrings.Optional, cost.optional, optScroll);//"Optional"
 
 			string ver = ELVersionReport.GetVersion ();
 			GUILayout.Label(ver);

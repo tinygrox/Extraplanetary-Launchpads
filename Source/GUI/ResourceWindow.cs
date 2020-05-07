@@ -260,11 +260,11 @@ namespace ExtraplanetaryLaunchpads {
 
 			GUI.enabled = canTransfer;
 			if (transferring) {
-				if (GUILayout.Button ("Stop Transfer")) {
+				if (GUILayout.Button (LocalStrings.StopTransfer)) {//"Stop Transfer"
 					transferring = false;
 				}
 			} else {
-				if (GUILayout.Button ("Start Transfer")) {
+				if (GUILayout.Button (LocalStrings.StartTransfer)) {//"Start Transfer"
 					transferring = true;
 					StartCoroutine (TransferResources ());
 				}
@@ -276,7 +276,7 @@ namespace ExtraplanetaryLaunchpads {
 		{
 			GUILayout.BeginHorizontal ();
 			GUILayout.FlexibleSpace ();
-			if (GUILayout.Button ("Close")) {
+			if (GUILayout.Button (LocalStrings.Close)) {//"Close"
 				HideGUI ();
 			}
 			GUILayout.FlexibleSpace ();
@@ -360,9 +360,9 @@ namespace ExtraplanetaryLaunchpads {
 			if (xferState != null) {
 				old = xferState[ind];
 			}
-			ToggleXferState (ind, XferState.Hold, "Hold");
-			ToggleXferState (ind, XferState.In, "In");
-			ToggleXferState (ind, XferState.Out, "Out");
+			ToggleXferState (ind, XferState.Hold, LocalStrings.XferState_Hold);//"Hold"
+			ToggleXferState (ind, XferState.In, LocalStrings.XferState_In);//"In"
+			ToggleXferState (ind, XferState.Out, LocalStrings.XferState_Out);//"Out"
 			GUILayout.Space (40);
 			if (xferState != null && xferState[ind] != old) {
 				if (old == XferState.In) {

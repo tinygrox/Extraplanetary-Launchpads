@@ -23,6 +23,7 @@ using UnityEngine;
 
 using KSP.IO;
 using KSP.UI.Screens;
+using KSP.Localization;
 
 using ExtraplanetaryLaunchpads_KACWrapper;
 
@@ -295,7 +296,7 @@ namespace ExtraplanetaryLaunchpads {
 			// limit slider to 0.5% increments
 			GUILayout.BeginVertical ();
 			if (minAmount == maxAmount) {
-				GUILayout.Box ("Must be 100%", width300, height20);
+				GUILayout.Box (LocalStrings.ResourceAmountTip, width300, height20);//"Must be 100%"
 				fraction = 1;
 			} else {
 				fraction = GUILayout.HorizontalSlider (fraction, 0.0F, 1.0F,
@@ -368,7 +369,7 @@ namespace ExtraplanetaryLaunchpads {
 			double eta = 0;
 			string percent = (fraction * 100).ToString ("G4") + "%";
 			if (control.paused) {
-				percent = percent + "[paused]";
+				percent = percent + LocalStrings.Pausedtext;//"[paused]"
 			} else {
 				eta = BuildETA (br, req, forward);
 				percent = percent + " " + EL_Utils.TimeSpanString (eta);
@@ -441,7 +442,7 @@ namespace ExtraplanetaryLaunchpads {
 			} else if (productivity < 1) {
 				prodStyle = ELStyles.yellow;
 			}
-			GUILayout.Label ("Productivity: " + productivity.ToString("G3"),
+			GUILayout.Label(LocalStrings.Productivity + ": " + productivity.ToString("G3"),//Productivity
 							 prodStyle);
 			GUILayout.EndHorizontal ();
 		}
@@ -450,7 +451,7 @@ namespace ExtraplanetaryLaunchpads {
 		{
 			GUILayout.BeginHorizontal ();
 			pad_list.DrawButton ();
-			highlight_pad = GUILayout.Toggle (highlight_pad, "Highlight Pad");
+			highlight_pad = GUILayout.Toggle (highlight_pad, LocalStrings.HighlightPad);//"Highlight Pad"
 			Select_Pad (launchpads[pad_list.SelectedIndex]);
 			GUILayout.EndHorizontal ();
 			control.builder.PadSelection ();
@@ -471,7 +472,7 @@ namespace ExtraplanetaryLaunchpads {
 
 			GUILayout.BeginHorizontal ();
 			GUI.enabled = craftlist == null;
-			if (GUILayout.Button ("Select Craft", ELStyles.normal,
+			if (GUILayout.Button (LocalStrings.SelectCraft, ELStyles.normal,//"Select Craft"
 								  expandWidth)) {
 
 				//GUILayout.Button is "true" when clicked
@@ -487,10 +488,10 @@ namespace ExtraplanetaryLaunchpads {
 				CreateFlagBrowser ();
 			}
 			GUI.enabled = control.craftConfig != null;
-			if (GUILayout.Button ("Reload", ELStyles.normal, noExpandWidth)) {
+			if (GUILayout.Button (LocalStrings.Reload, ELStyles.normal, noExpandWidth)) {//"Reload"
 				control.LoadCraft (control.filename, control.flagname);
 			}
-			if (GUILayout.Button ("Clear", ELStyles.normal, noExpandWidth)) {
+			if (GUILayout.Button (LocalStrings.Clear, ELStyles.normal, noExpandWidth)) {//"Clear"
 				control.UnloadCraft ();
 			}
 			GUI.enabled = true;
@@ -501,13 +502,13 @@ namespace ExtraplanetaryLaunchpads {
 		{
 			if (control.craftConfig != null) {
 				var ship_name = control.craftName;
-				GUILayout.Box ("Selected Craft:	" + ship_name, ELStyles.white);
+				GUILayout.Box (LocalStrings.SelectedCraft + ":	" + ship_name, ELStyles.white);//Selected Craft
 			}
 		}
 
 		void LockedParts ()
 		{
-			GUILayout.Label ("Not all of the blueprints for this vessel can be found.");
+			GUILayout.Label (LocalStrings.PartLocked);//"Not all of the blueprints for this vessel can be found."
 		}
 
 		void ResourceHeader (string header)
@@ -520,7 +521,7 @@ namespace ExtraplanetaryLaunchpads {
 
 		void RequiredResources ()
 		{
-			ResourceHeader ("Resources required to build:");
+			ResourceHeader (LocalStrings.ResourcesRequired + ":");//Resources required to build
 			foreach (var br in control.buildCost.required) {
 				double a = br.amount;
 				double available = -1;
@@ -533,7 +534,7 @@ namespace ExtraplanetaryLaunchpads {
 		void BuildButton ()
 		{
 			GUI.enabled = control.builder.canBuild;
-			if (GUILayout.Button ("Build", ELStyles.normal, expandWidth)) {
+			if (GUILayout.Button (LocalStrings.Build, ELStyles.normal, expandWidth)) {//"Build"
 				control.BuildCraft ();
 			}
 			GUI.enabled = true;
@@ -543,12 +544,12 @@ namespace ExtraplanetaryLaunchpads {
 		{
 			GUILayout.BeginHorizontal ();
 			GUI.enabled = control.builder.canBuild;
-			if (GUILayout.Button ("Finalize Build", ELStyles.normal,
+			if (GUILayout.Button (LocalStrings.FinalizeBuild, ELStyles.normal,//"Finalize Build"
 								  expandWidth)) {
 				control.BuildAndLaunchCraft ();
 			}
 			GUI.enabled = true;
-			if (GUILayout.Button ("Teardown Build", ELStyles.normal,
+			if (GUILayout.Button (LocalStrings.TeardownBuild, ELStyles.normal,//"Teardown Build"
 								  expandWidth)) {
 				control.CancelBuild ();
 			}
@@ -588,11 +589,11 @@ namespace ExtraplanetaryLaunchpads {
 					string builderShipName = FlightGlobals.ActiveVessel.vesselName;
 					string newCraftName = control.craftConfig.GetValue ("ship");
 
-					string alarmMessage = "[EL] build: \"" + newCraftName + "\"";
-					string alarmNotes = "Completion of Extraplanetary Launchpad build of \"" + newCraftName + "\" on \"" + builderShipName + "\"";
+					string alarmMessage = Localizer.Format("#EL_UI_buildMessage", newCraftName);//"[EL] build: \"" +  + "\""
+					string alarmNotes = Localizer.Format("#EL_UI_buildNotes", newCraftName, builderShipName);//"Completion of Extraplanetary Launchpad build of \"" +  + "\" on \"" +  + "\""
 					if (!forward) { // teardown messages
-						alarmMessage = "[EL] teardown: \"" + newCraftName + "\"";
-						alarmNotes = "Teardown of Extraplanetary Launchpad build of \"" + newCraftName + "\" on \"" + builderShipName + "\"";
+						alarmMessage = Localizer.Format("#EL_UI_teardownMessage", newCraftName);//"[EL] teardown: \"" +  + "\""
+						alarmNotes = Localizer.Format("#EL_UI_teardownNotes", newCraftName, builderShipName);//"Teardown of Extraplanetary Launchpad build of \"" +  + "\" on \"" +  + "\""
 					}
 
 					if (a == null) {
@@ -649,9 +650,7 @@ namespace ExtraplanetaryLaunchpads {
 
 		void OptionalResources ()
 		{
-			link_lfo_sliders = GUILayout.Toggle (link_lfo_sliders,
-												 "Link LiquidFuel and "
-												 + "Oxidizer sliders");
+			link_lfo_sliders = GUILayout.Toggle (link_lfo_sliders, LocalStrings.LinkLFOSliders);//"Link LiquidFuel and Oxidizer sliders"
 			foreach (var br in control.buildCost.optional) {
 				double available = control.padResources.ResourceAmount (br.name);
 				double maximum = control.craftResources.ResourceCapacity(br.name);
@@ -677,7 +676,7 @@ namespace ExtraplanetaryLaunchpads {
 		}
 
 		static string[] state_str = {
-			"Build", "Teardown",
+			LocalStrings.Build, LocalStrings.Teardown,//"Build""Teardown"
 		};
 		void PauseButton ()
 		{
@@ -685,23 +684,23 @@ namespace ExtraplanetaryLaunchpads {
 			string statestr = state_str[ind];
 			GUILayout.BeginHorizontal ();
 			if (control.paused) {
-				if (GUILayout.Button ($"Resume {statestr}", ELStyles.normal,
+				if (GUILayout.Button (LocalStrings.Resume + statestr, ELStyles.normal,//Resume
 									  expandWidth)) {
 					control.ResumeBuild ();
 				}
 			} else {
-				if (GUILayout.Button ($"Pause {statestr}", ELStyles.normal,
+				if (GUILayout.Button (LocalStrings.Pause + statestr, ELStyles.normal,// Pause
 									  expandWidth)) {
 					control.PauseBuild ();
 				}
 			}
 			if (control.state == ELBuildControl.State.Building) {
-				if (GUILayout.Button ("Cancel Build", ELStyles.normal,
+				if (GUILayout.Button (LocalStrings.CancelBuild, ELStyles.normal,//"Cancel Build"
 									  expandWidth)) {
 					control.CancelBuild ();
 				}
 			} else {
-				if (GUILayout.Button ("Restart Build", ELStyles.normal,
+				if (GUILayout.Button (LocalStrings.RestartBuild, ELStyles.normal,//"Restart Build"
 									  expandWidth)) {
 					control.UnCancelBuild ();
 				}
@@ -711,7 +710,7 @@ namespace ExtraplanetaryLaunchpads {
 
 		void ReleaseButton ()
 		{
-			if (GUILayout.Button ("Release", ELStyles.normal, expandWidth)) {
+			if (GUILayout.Button (LocalStrings.Release, ELStyles.normal, expandWidth)) {//"Release"
 				control.ReleaseVessel ();
 			}
 		}
@@ -720,7 +719,7 @@ namespace ExtraplanetaryLaunchpads {
 		{
 			GUILayout.BeginHorizontal ();
 			GUILayout.FlexibleSpace ();
-			if (GUILayout.Button ("Close")) {
+			if (GUILayout.Button (LocalStrings.Close)) {//"Close"
 				HideGUI ();
 			}
 			GUILayout.FlexibleSpace ();

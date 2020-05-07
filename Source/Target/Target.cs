@@ -114,7 +114,7 @@ namespace ExtraplanetaryLaunchpads {
 			}
 		}
 
-		[KSPEvent (guiName = "Set as Target", guiActiveUnfocused = true,
+		[KSPEvent (guiName = "#autoLOC_465801", guiActiveUnfocused = true,//Set as Target
 				   externalToEVAOnly = false, guiActive = false,
 				   unfocusedRange = 200f, active = true)]
 		public void SetAsTarget ()
@@ -122,7 +122,7 @@ namespace ExtraplanetaryLaunchpads {
 			FlightGlobals.fetch.SetVesselTarget (this);
 		}
 
-		[KSPEvent (guiName = "Unset Target", guiActiveUnfocused = true,
+		[KSPEvent (guiName = "#autoLOC_465805", guiActiveUnfocused = true,//Unset Target
 				   externalToEVAOnly = false, guiActive = false,
 				   unfocusedRange = 200f, active = false)]
 		public void UnsetTarget ()

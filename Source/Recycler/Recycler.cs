@@ -22,6 +22,7 @@ using System.Linq;
 using UnityEngine;
 
 using KSP.IO;
+using KSP.Localization;
 
 namespace ExtraplanetaryLaunchpads {
 
@@ -29,7 +30,7 @@ public class ELRecycler : PartModule, IModuleInfo, IPartMassModifier, ELControlI
 {
 	[KSPField] public float RecycleRate = 1.0f;
 	[KSPField] public string RecycleField_name = "RecycleField";
-	[KSPField (guiName = "State", guiActive = true)] public string status;
+	[KSPField (guiName = "#EL_UI_State", guiActive = true)] public string status;//"State"
 	[KSPField] public float EVARange = 1.5f;
 
 	[KSPField (isPersistant = true)]
@@ -62,17 +63,17 @@ public class ELRecycler : PartModule, IModuleInfo, IPartMassModifier, ELControlI
 
 	public override string GetInfo ()
 	{
-		return "Recycler:\n" + String.Format ("rate: {0:G2}t/s", RecycleRate);
+		return Localizer.Format("#EL_UI_Recyler_GetInfo", RecycleRate.ToString("G2"));//"Recycler:\n" + String.Format ("rate:  {0:G2}t/s", )
 	}
 
 	public string GetPrimaryField ()
 	{
-		return String.Format ("Recycling Rate: {0:G2}t/s", RecycleRate);
+		return Localizer.Format("#EL_UI_Recyler_GetPrimaryField", RecycleRate.ToString("G2"));//String.Format ("Recycling Rate: {0:G2}t/s", )
 	}
 
 	public string GetModuleTitle ()
 	{
-		return "EL Recycler";
+		return LocalStrings.ELRecycler;//"EL Recycler"
 	}
 
 	public Callback<Rect> GetDrawModulePanelCallback ()
@@ -113,24 +114,24 @@ public class ELRecycler : PartModule, IModuleInfo, IPartMassModifier, ELControlI
 		}
 	}
 
-	[KSPEvent (guiActive = true, guiName = "Activate Recycler", active = true)]
+	[KSPEvent (guiActive = true, guiName = "#EL_UI_ActivateRecycler", active = true)]//Activate Recycler
 	public void Activate ()
 	{
 		Events["Activate"].active = false;
 		Events["Deactivate"].active = true;
-		status = "Active";
+		status = LocalStrings.Active;//"Active"
 		if (sm != null) {
 			sm.Enable ();
 		}
 	}
 
-	[KSPEvent (guiActive = true, guiName = "Deactivate Recycler",
+	[KSPEvent (guiActive = true, guiName = "#EL_UI_DeactivateRecycler",//Deactivate Recycler
 	 active = false)]
 	public void Deactivate ()
 	{
 		Events["Activate"].active = true;
 		Events["Deactivate"].active = false;
-		status = "Inactive";
+		status = LocalStrings.Inactive;//"Inactive"
 		if (sm != null) {
 			sm.Disable ();
 		}

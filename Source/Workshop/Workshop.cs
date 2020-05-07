@@ -23,6 +23,7 @@ using UnityEngine;
 
 using KSP.IO;
 using Experience;
+using KSP.Localization;
 
 namespace ExtraplanetaryLaunchpads {
 
@@ -42,7 +43,7 @@ public class ELWorkshop : PartModule, IModuleInfo, ELWorkSource
 	[KSPField]
 	public bool IgnoreCrewCapacity = true;
 
-	[KSPField (guiName = "Productivity", guiActive = true)]
+	[KSPField (guiName = "#EL_UI_Productivity", guiActive = true)]//Productivity
 	double _Productivity;
 	public double Productivity
 	{
@@ -50,7 +51,7 @@ public class ELWorkshop : PartModule, IModuleInfo, ELWorkSource
 		private set { _Productivity = value; }
 	}
 
-	[KSPField (guiName = "Vessel Productivity", guiActive = true)]
+	[KSPField (guiName = "#EL_UI_VesselProductivity", guiActive = true)]//Vessel Productivity
 	public double VesselProductivity;
 
 	public bool SupportInexperienced
@@ -66,17 +67,17 @@ public class ELWorkshop : PartModule, IModuleInfo, ELWorkSource
 
 	public override string GetInfo ()
 	{
-		return String.Format ("Workshop: productivity factor {0:G2}", ProductivityFactor);
+		return Localizer.Format("#EL_UI_Workshop_Info", ProductivityFactor.ToString("G2"));//String.Format ("Workshop: productivity factor {0:G2}", )
 	}
 
 	public string GetPrimaryField ()
 	{
-		return String.Format ("Productivity Factor: {0:G2}", ProductivityFactor);
+		return Localizer.Format("#EL_UI_Workshop_PrimaryField", ProductivityFactor.ToString("G2"));//String.Format ("Productivity Factor: {0:G2}", )
 	}
 
 	public string GetModuleTitle ()
 	{
-		return "EL Workshop";
+		return Localizer.Format("#EL_UI_Workshop_ModuleTitle");//"EL Workshop"
 	}
 
 	public Callback<Rect> GetDrawModulePanelCallback ()

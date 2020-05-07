@@ -30,7 +30,7 @@ namespace ExtraplanetaryLaunchpads {
 		public float SpawnHeightOffset = 0.0f;
 		[KSPField (isPersistant = false)]
 		public string SpawnTransform;
-		[KSPField (isPersistant = true, guiActive = true, guiName = "Pad name")]
+		[KSPField (isPersistant = true, guiActive = true, guiName = "#EL_UI_PadName")]//Pad name
 		public string PadName = "";
 
 		[KSPField] public float EVARange = 0;
@@ -264,13 +264,13 @@ namespace ExtraplanetaryLaunchpads {
 			}
 		}
 
-		[KSPEvent (guiActive = true, guiName = "Hide UI", active = false)]
+		[KSPEvent (guiActive = true, guiName = "#EL_UI_HideUI", active = false)]//Hide UI
 		public void HideUI ()
 		{
 			ELBuildWindow.HideGUI ();
 		}
 
-		[KSPEvent (guiActive = true, guiName = "Show UI", active = false)]
+		[KSPEvent (guiActive = true, guiName = "#EL_UI_ShowUI", active = false)]//Show UI
 		public void ShowUI ()
 		{
 			ELBuildWindow.ShowGUI ();
@@ -278,7 +278,7 @@ namespace ExtraplanetaryLaunchpads {
 		}
 
 		[KSPEvent (guiActive = true, guiActiveEditor = true,
-				   guiName = "Rename", active = true)]
+				   guiName = "#EL_UI_Rename", active = true)]//Rename
 		public void ShowRenameUI ()
 		{
 			ELRenameWindow.ShowGUI (this);

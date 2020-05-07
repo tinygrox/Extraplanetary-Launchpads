@@ -158,7 +158,7 @@ namespace ExtraplanetaryLaunchpads {
 			cb.showMergeOption = showMergeOption;
 			cb.OnBrowseCancelled = onCancel;
 			cb.OnFileSelected = onFileSelected;
-			cb.title = "Select a craft to load";
+			cb.title = LocalStrings.BrowserTitle;//"Select a craft to load"
 			cb.profile = profile;
 
 			return cb;

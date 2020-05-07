@@ -46,7 +46,7 @@ namespace ExtraplanetaryLaunchpads {
 		[KSPField]
 		public double Rate;
 
-		[KSPField (guiActive = true, guiName = "Furnace Temp")]
+		[KSPField (guiActive = true, guiName = "#EL_UI_FurnaceTemp")]//Furnace Temp
 		public string furnaceTemp;
 		BaseField furnaceTempField;
 
@@ -156,18 +156,18 @@ namespace ExtraplanetaryLaunchpads {
 				}
 				sb.Append (ConverterName);
 				if (efficiencyCurve.Length > 1) {
-					sb.Append (" at 50% efficiency");
+					sb.Append (" at 50% efficiency");//
 				}
 
-				sb.AppendFormat ("\n\n<color=#bada55>Mass flow: {0:0.00} {1}/{2}</color>", mass, "kg", "s");
-				sb.AppendFormat ("\n\n<color=#bada55>Heat flow: {0:0.00} {1}/{2}</color>", heat, "MJ", "s");
-				sb.Append ("\n\n<color=#bada55>Inputs:</color>");
+				sb.AppendFormat ("\n\n<color=#bada55>" + LocalStrings.Massflow + ": {0:0.00} {1}/{2}</color>", mass, "kg", "s");//"Mass flow"
+				sb.AppendFormat ("\n\n<color=#bada55>" + LocalStrings.Heatflow + ": {0:0.00} {1}/{2}</color>", heat, "MJ", "s");//Heat flow
+				sb.Append ("\n\n<color=#bada55>" + LocalStrings.Inputs + ":</color>");//Inputs
 				PrintRecipe (sb, inputs);
 
-				sb.Append ("\n<color=#bada55>Outputs:</color>");
+				sb.Append ("\n<color=#bada55>"  + LocalStrings.Outputs + ":</color>");//Outputs
 				PrintRecipe (sb, outputs, true);
 			} else {
-				sb.Append ("broken configuration");
+				sb.Append (LocalStrings.Brokenconfiguration);//"broken configuration"
 			}
 			return sb.ToStringAndRelease ();
 		}
@@ -179,7 +179,7 @@ namespace ExtraplanetaryLaunchpads {
 
 		public string GetModuleTitle ()
 		{
-			return "EL Converter";
+			return LocalStrings.ELConverter;//"EL Converter"
 		}
 
 		public override string GetModuleDisplayName ()
@@ -238,7 +238,7 @@ namespace ExtraplanetaryLaunchpads {
 					double eff = efficiency * 100;
 					status = eff.ToString("0.00") + "% eff.";
 				} else {
-					status = "Operating";
+					status = LocalStrings.Operating;//"Operating"
 				}
 			}
 			//if (deltaTime < 1000) {

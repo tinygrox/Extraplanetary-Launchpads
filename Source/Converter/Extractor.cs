@@ -55,19 +55,19 @@ namespace ExtraplanetaryLaunchpads {
 			StringBuilder sb = StringBuilderCache.Acquire ();
 			sb.Append (ConverterName);
 			if (recipe.Inputs.Count > 0) {
-				sb.Append ("\n\n<color=#bada55>Inputs:</color>");
+				sb.Append("\n\n<color=#bada55>" + LocalStrings.Inputs + ":</color>");//Inputs
 				for (int i = 0, c = recipe.Inputs.Count; i < c; i++) {
 					EL_Utils.PrintResource (sb, recipe.Inputs[i], "t");
 				}
 			}
 			if (recipe.Outputs.Count > 0) {
-				sb.Append ("\n<color=#bada55>Outputs:</color>");
+				sb.Append("\n<color=#bada55>" + LocalStrings.Outputs + ":</color>");//Outputs
 				for (int i = 0, c = recipe.Outputs.Count; i < c; i++) {
 					EL_Utils.PrintResource (sb, recipe.Outputs[i], "t");
 				}
 			}
 			if (recipe.Requirements.Count > 0) {
-				sb.Append ("\n<color=#bada55>Requirements:</color>");
+				sb.Append ("\n<color=#bada55>"+LocalStrings.Requirements+":</color>");//Requirements
 				for (int i = 0, c = recipe.Requirements.Count; i < c; i++) {
 					EL_Utils.PrintResource (sb, recipe.Requirements[i], "t");
 				}
@@ -140,7 +140,7 @@ namespace ExtraplanetaryLaunchpads {
 				resource_providers[i].ExtractResource (ResourceName, location, amount);
 			}
 			if (result.TimeFactor < 1E-09) {
-				status = "stalled";
+				status = LocalStrings.Status_stalled;//"stalled"
 			}
 		}
 
@@ -158,7 +158,7 @@ namespace ExtraplanetaryLaunchpads {
 			RaycastHit hit;
 
 			if (!raycastGround (out hit)) {
-				status = "no ground contact";
+				status = LocalStrings.Status_NoGroundContact;//"no ground contact"
 				return null;
 			}
 			location = new RPLocation (vessel.mainBody, hit.point);
@@ -174,12 +174,12 @@ namespace ExtraplanetaryLaunchpads {
 				amount = Rate;
 			}
 			if (amount < 1e-6f) {
-				status = "insufficient abundance";
+				status = LocalStrings.Status_insufficientabundance;//"insufficient abundance"
 				IsActivated = false;
 				return null;
 			}
 			if (!IsActivated) {
-				status = "Inactive";
+				status = LocalStrings.Status_Inactive;//"Inactive"
 				return null;
 			}
 			rate = amount * GetEfficiencyMultiplier();

@@ -28,7 +28,7 @@ namespace ExtraplanetaryLaunchpads {
 
 	public class ELSurveyStation : PartModule, IModuleInfo, IPartMassModifier, ELBuildControl.IBuilder, ELControlInterface, ELWorkSink, ELRenameWindow.IRenamable
 	{
-		[KSPField (isPersistant = true, guiActive = true, guiName = "Pad name")]
+		[KSPField (isPersistant = true, guiActive = true, guiName = "#EL_UI_PadName")]//Pad name
 		public string StationName = "";
 
 		[KSPField (isPersistant = true)]
@@ -41,7 +41,7 @@ namespace ExtraplanetaryLaunchpads {
 		List<SurveySite> available_sites;
 		SurveySite site;
 		double craft_mass;
-		[KSPField (guiName = "Range", guiActive = true)]
+		[KSPField (guiName = "#EL_UI_Range", guiActive = true)]//Range
 		float range = 20;
 		public static float[] site_ranges = {
 			20, 50, 100, 200, 400, 800, 1600, 2000
@@ -49,7 +49,7 @@ namespace ExtraplanetaryLaunchpads {
 
 		public override string GetInfo ()
 		{
-			return "Survey Station";
+			return LocalStrings.SurveyStation;//"Survey Station"
 		}
 
 		public string GetPrimaryField ()
@@ -196,7 +196,7 @@ namespace ExtraplanetaryLaunchpads {
 		{
 			bool en = GUI.enabled;
 			GUI.enabled = en && (site != null);
-			if (GUILayout.Button ("Rename Site", ELStyles.normal,
+			if (GUILayout.Button (LocalStrings.RenameSite, ELStyles.normal,//"Rename Site"
 								  GUILayout.ExpandWidth (false))) {
 				if (site != null) {
 					ELRenameWindow.ShowGUI (site);
@@ -210,10 +210,10 @@ namespace ExtraplanetaryLaunchpads {
 			if (site_list == null) {
 				GUILayout.BeginHorizontal ();
 				if (control.state == ELBuildControl.State.Complete) {
-					GUILayout.Label ("No sites found. Explosions likely.",
+					GUILayout.Label (LocalStrings.NoSitesFound,//"No sites found. Explosions likely."
 									 ELStyles.red);
 				} else {
-					GUILayout.Label ("No sites found.");
+					GUILayout.Label (LocalStrings.NoSitesFound2);//"No sites found."
 				}
 				GUILayout.EndHorizontal ();
 			} else {
@@ -361,13 +361,13 @@ namespace ExtraplanetaryLaunchpads {
 			}
 		}
 
-		[KSPEvent (guiActive = true, guiName = "Hide UI", active = false)]
+		[KSPEvent (guiActive = true, guiName = "#EL_UI_HideUI", active = false)]//Hide UI
 		public void HideUI ()
 		{
 			ELBuildWindow.HideGUI ();
 		}
 
-		[KSPEvent (guiActive = true, guiName = "Show UI", active = false)]
+		[KSPEvent (guiActive = true, guiName = "#EL_UI_ShowUI", active = false)]//Show UI
 		public void ShowUI ()
 		{
 			ELBuildWindow.ShowGUI ();
@@ -375,7 +375,7 @@ namespace ExtraplanetaryLaunchpads {
 		}
 
 		[KSPEvent (guiActive = true, guiActiveEditor = true,
-				   guiName = "Rename", active = true)]
+				   guiName = "#EL_UI_Rename", active = true)]//Rename
 		public void ShowRenameUI ()
 		{
 			ELRenameWindow.ShowGUI (this);

@@ -79,7 +79,7 @@ namespace ExtraplanetaryLaunchpads {
 		void RenameField ()
 		{
 			GUILayout.BeginHorizontal ();
-			GUILayout.Label ("Rename launchpad: ");
+			GUILayout.Label (LocalStrings.Renamelaunchpad + ": ");//Rename launchpad
 
 			if (nameField.HandleInput ()) {
 				RenamePad ();
@@ -92,13 +92,13 @@ namespace ExtraplanetaryLaunchpads {
 		{
 			GUILayout.BeginHorizontal ();
 			GUILayout.FlexibleSpace ();
-			if (GUILayout.Button ("OK")) {
+			if (GUILayout.Button (LocalStrings.btn_OK)) {//"OK"
 				nameField.AcceptInput ();
 				RenamePad ();
 				HideGUI ();
 			}
 			GUILayout.FlexibleSpace ();
-			if (GUILayout.Button ("Cancel")) {
+			if (GUILayout.Button (LocalStrings.Cancel)) {//"Cancel"
 				HideGUI ();
 			}
 			GUILayout.FlexibleSpace ();
@@ -133,7 +133,7 @@ namespace ExtraplanetaryLaunchpads {
 			GUI.skin = HighLogic.Skin;
 			windowpos = GUILayout.Window (GetInstanceID (),
 				windowpos, WindowGUI,
-				"Rename Launchpad",
+				LocalStrings.Renamelaunchpad,//"Rename Launchpad"
 				GUILayout.Width(500));
 			if (windowpos.Contains(Event.current.mousePosition)) {
 				SetControlLock ();

@@ -30,12 +30,12 @@ using KerbalStats;
 	public class ELConstructionSkill : ExperienceEffect
 	{
 		static string [] skills = new string [] {
-			" can work in a fully equipped workshop.",
-			" can work in any workshop.",
-			" is always productive in a fully equipped workshop.",
-			" is always productive in any workshop.",
-			" enables skilled workers in any workshop.",
-			" enables unskilled workers in a fully equipped workshop.",
+			LocalStrings.Experiencedesc1,//" can work in a fully equipped workshop."
+			LocalStrings.Experiencedesc2,//" can work in any workshop."
+			LocalStrings.Experiencedesc3,//" is always productive in a fully equipped workshop."
+			LocalStrings.Experiencedesc4,//" is always productive in any workshop."
+			LocalStrings.Experiencedesc5,//" enables skilled workers in any workshop."
+			LocalStrings.Experiencedesc6,//" enables unskilled workers in a fully equipped workshop."
 		};
 
 		protected override float GetDefaultValue ()
@@ -48,9 +48,9 @@ using KerbalStats;
 			ProtoCrewMember crew = Parent.CrewMember;
 			string pronoun;
 			if (crew.gender == ProtoCrewMember.Gender.Female) {
-				pronoun = "She";
+				pronoun = LocalStrings.gender_She;//"She"
 			} else {
-				pronoun = "He";
+				pronoun = LocalStrings.gender_He;//"He"
 			}
 			int exp = Parent.CrewMemberExperienceLevel (6);
 			return pronoun + skills[exp];
